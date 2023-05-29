@@ -1,0 +1,38 @@
+.header {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 5px 10px #000;
+}
+.logo {
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 30px;
+  color: #fff;
+  font-weight: 500;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+::ng-deep .customize {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+.mat-menu-item {
+  color: #fff !important;
+}
+
+button.mat-menu-item {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+button.mat-menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff !important;
+}
+#menu-item button {
+  display: block;
+  margin: 0 auto;
+}

@@ -1,0 +1,59 @@
+<div class="login-page">
+  <div class="login">
+    <img src="../../../assets/blogger.png" alt="Login" class="login-image" />
+    <h2>Вхід до акаунту</h2>
+    <form [formGroup]="loginForm">
+      <div>
+        <div class="justify-content-center">
+          <div></div>
+          <mat-form-field appearance="outline">
+            <mat-label>Електронна пошта</mat-label>
+            <input matInput formControlName="username" />
+            <mat-hint
+              *ngIf="username.invalid && (username.dirty || username.touched)"
+              style="color: red"
+              >Некоректний логін</mat-hint
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Пароль</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              minlength="6"
+              maxlength="32"
+            />
+            <mat-icon
+              style="cursor: pointer"
+              matSuffix
+              (click)="hide = !hide"
+              >{{ hide ? "visibility_off" : "visibility" }}</mat-icon
+            >
+            <mat-hint align="end">{{ password.value.length }} / 32</mat-hint>
+            <mat-hint
+              *ngIf="password.invalid && password.touched"
+              style="color: red"
+              >Мінімальна довжина 6 симолів</mat-hint
+            >
+          </mat-form-field>
+        </div>
+        <div id="controls" class="row">
+          <button
+            style="width: 20%"
+            [disabled]="loginForm.invalid"
+            (click)="submit()"
+            mat-flat-button
+            color="primary"
+          >
+            Увійти
+          </button>
+
+          <a routerLink="/register">Реєстрація</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

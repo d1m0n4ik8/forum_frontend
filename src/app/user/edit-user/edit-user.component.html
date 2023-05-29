@@ -1,0 +1,41 @@
+<div style="color: white; padding: 20px">
+  <h2>Редагувати профіль користувача</h2>
+  <form [formGroup]="profileEditForm">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Ім'я</mat-label>
+      <input matInput formControlName="firstName" maxlength="32" />
+      <mat-hint align="end"
+        >{{ profileEditForm.value.firstName.length }} / 32</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Прізвище</mat-label>
+      <input matInput formControlName="lastName" maxlength="32" />
+      <mat-hint align="end"
+        >{{ profileEditForm.value.lastName.length }} / 32</mat-hint
+      >
+    </mat-form-field>
+
+    <div class="row">
+      <button
+        (click)="closeDialog()"
+        class="w-50"
+        mat-button
+        mat-dialog-close
+        disableRipple
+      >
+        Закрити
+      </button>
+      <button
+        color="primary"
+        class="w-50"
+        [disabled]="profileEditForm.invalid"
+        (click)="submit()"
+        mat-button
+        disableRipple
+      >
+        Змінити
+      </button>
+    </div>
+  </form>
+</div>

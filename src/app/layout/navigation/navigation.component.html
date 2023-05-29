@@ -1,0 +1,41 @@
+<mat-toolbar color="primary" class="header">
+  <span routerLink="/main" class="logo"
+    >Community
+    <b
+      style="
+        color: #000;
+        padding: 5px;
+        border-radius: 7px;
+        background-color: #fff;
+      "
+      >Hub</b
+    ></span
+  >
+
+  <span class="spacer"></span>
+
+  <button
+    *ngIf="!isLoggedIn"
+    matTooltip="Login"
+    routerLink="/login"
+    mat-icon-button
+    class="example-icon favorite-icon"
+  >
+    <mat-icon>login</mat-icon>
+  </button>
+
+  <div
+    [matMenuTriggerFor]="menu"
+    matTooltip="Profile"
+    style="display: flex; align-items: center; cursor: pointer"
+  >
+    <h3 *ngIf="isDataLoaded" style="padding-right: 10px">
+      {{ this.user.firstname }} {{ this.user.lastname }}
+    </h3>
+    <mat-icon *ngIf="isLoggedIn" color="accent">account_box</mat-icon>
+  </div>
+  <mat-menu id="menu-item" #menu="matMenu" class="customize" xPosition="before">
+    <button mat-menu-item routerLink="/profile">Профіль</button>
+    <button (click)="logout()" mat-menu-item>Вийти</button>
+  </mat-menu>
+</mat-toolbar>

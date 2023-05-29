@@ -1,0 +1,14 @@
+.post-card {
+  display: block;
+  margin: 1rem auto;
+  width: 80%;
+}
+
+.mat-card {
+  background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 5px 10px #000;
+  color: #fff;
+}
+.mat-card-subtitle {
+  color: #fff;
+}

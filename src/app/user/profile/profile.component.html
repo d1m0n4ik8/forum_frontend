@@ -1,0 +1,46 @@
+<div *ngIf="isUserDataLoaded" class="user-profile">
+  <h1>Профіль</h1>
+  <div style="text-align: right">
+    <button mat-flat-button color="primary" (click)="openEditDialog()">
+      Змінити інформацію
+    </button>
+  </div>
+
+  <div style="padding-top: 2rem" class="row">
+    <div class="col">
+      <img
+        class="profile-image"
+        [src]="
+          previewImgURL ||
+          formatImage(userProfileImage) ||
+          'https://www.kindpng.com/picc/m/272-2720630_grey-user-hd-png-download.png'
+        "
+        alt="user image"
+      />
+
+      <input
+        type="file"
+        style="display: none"
+        #fileInput
+        (change)="onFileSelected($event)"
+      />
+
+      <button mat-button (click)="fileInput.click()">Вибрати файл</button>
+      <button mat-button *ngIf="selectedFile" (click)="onUpload()">
+        Завантажити
+      </button>
+    </div>
+    <div class="col" style="text-align: left">
+      <h2>{{ user.username }}</h2>
+
+      <h3 style="font-style: italic">
+        {{ user.firstname }} {{ user.lastname }}
+      </h3>
+      <p>{{ user.bio }}</p>
+    </div>
+
+    <mat-divider style="margin: 2rem 0"></mat-divider>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

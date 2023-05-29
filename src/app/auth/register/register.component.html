@@ -1,0 +1,97 @@
+<div class="register-page">
+  <h2>Реєстрація</h2>
+  <p>Вже маєте акаунт? <a routerLink="/login">Увійти</a></p>
+  <form [formGroup]="registerForm">
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Електронна пошта</mat-label>
+        <input matInput formControlName="email" />
+        <mat-hint
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          style="color: red"
+          >Некоректний email</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Нік користувача</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Ім'я</mat-label>
+        <input matInput formControlName="firstname" />
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Прізвище</mat-label>
+        <input matInput formControlName="lastname" />
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input
+          type="password"
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          minlength="6"
+          maxlength="32"
+        />
+        <mat-icon
+          style="cursor: pointer"
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          >{{ hidePassword ? "visibility_off" : "visibility" }}</mat-icon
+        >
+        <mat-hint align="end">{{ password.value.length }} / 32</mat-hint>
+        <mat-hint
+          *ngIf="password.invalid && password.touched"
+          style="color: red"
+          >Мінімальна довжина 6 симолів</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <div class="justify-content-center">
+      <mat-form-field appearance="outline">
+        <mat-label>Підтвердження паролю</mat-label>
+        <input
+          type="password"
+          matInput
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          formControlName="confirmPassword"
+          minlength="6"
+          maxlength="32"
+        />
+        <mat-icon
+          style="cursor: pointer"
+          matSuffix
+          (click)="hideConfirmPassword = !hideConfirmPassword"
+          >{{ hideConfirmPassword ? "visibility_off" : "visibility" }}</mat-icon
+        >
+        <mat-hint align="end">{{ confirmPassword.value.length }} / 32</mat-hint>
+        <mat-hint
+          *ngIf="
+            (confirmPassword.value &&
+              confirmPassword.value !== password.value) ||
+            (confirmPassword.invalid && confirmPassword.touched)
+          "
+          style="color: red"
+          >Паролі не сходяться</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <button
+      [disabled]="registerForm.invalid"
+      (click)="submit()"
+      mat-flat-button
+      color="primary"
+    >
+      Реєстрація
+    </button>
+  </form>
+</div>

@@ -1,0 +1,138 @@
+<div *ngIf="isPostsLoaded && isUserDataLoaded" class="index-page">
+  <div class="search">
+    <div class="post-tab-header">Пости</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Пошук постів</mat-label>
+      <input
+        matInput
+        placeholder="Назва посту"
+        (keyup)="onKey($event)"
+        minlength="6"
+        maxlength="32"
+        class="input"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Нові пости">
+      <div class="empty-data" *ngIf="!filteredPosts.length">
+        <img
+          src="https://static.thenounproject.com/png/1735753-200.png"
+          alt="not found"
+        />
+        Постів не знайдено...
+      </div>
+      <div *ngIf="filteredPosts.length">
+        <mat-card class="post-card" *ngFor="let post of filteredPosts">
+          <mat-card-header style="text-align: left; font-size: 20px">
+            <mat-card-title>{{ post.title }}</mat-card-title>
+            <mat-card-subtitle>{{ post.location }}</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            [src]="formatImage(post.image)"
+            alt="post image"
+          />
+          <mat-card-subtitle align="start"
+            >Опубліковано {{ post.username }}</mat-card-subtitle
+          >
+          <mat-card-content style="font-size: 20px">
+            <p>{{ post.caption }}</p>
+          </mat-card-content>
+
+          <mat-card-actions align="start">
+            <button
+              *ngIf="isUserDataLoaded"
+              mat-button
+              (click)="likePost(post.id)"
+              [ngClass]="
+                post.usersLiked.indexOf(user.username) !== -1
+                  ? 'is-liked'
+                  : 'not-liked'
+              "
+            >
+              <mat-icon>favorite</mat-icon> Вподобайки {{ post.likes }}
+            </button>
+          </mat-card-actions>
+
+          <div style="text-align: left">
+            <p *ngFor="let comment of post.comments">
+              <span style="font-weight: 500">{{ comment.username }}</span
+              >: {{ comment.message }}
+            </p>
+          </div>
+
+          <mat-form-field class="w-100">
+            <mat-label>Залишити комент...</mat-label>
+            <input
+              (keyup.enter)="postComment($event.target.value, post.id)"
+              matInput
+              #message
+              maxlength="128"
+            />
+            <mat-hint align="end">{{ message.value.length }} / 128</mat-hint>
+          </mat-form-field>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Популярні пости">
+      <div class="empty-data" *ngIf="!filteredPosts.length">
+        <img
+          src="https://static.thenounproject.com/png/1735753-200.png"
+          alt="not found"
+        />
+        Постів не знайдено...
+      </div>
+      <mat-card class="post-card" *ngFor="let post of sortedPosts">
+        <mat-card-header style="text-align: left">
+          <mat-card-title>{{ post.title }}</mat-card-title>
+          <mat-card-subtitle>{{ post.location }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="formatImage(post.image)" alt="post image" />
+        <mat-card-subtitle align="start"
+          >Опубліковано {{ post.username }}</mat-card-subtitle
+        >
+        <mat-card-content>
+          <p>{{ post.caption }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="start">
+          <button
+            *ngIf="isUserDataLoaded"
+            mat-button
+            (click)="likePost(post.id)"
+            [ngClass]="
+              post.usersLiked.indexOf(user.username) !== -1
+                ? 'is-liked'
+                : 'not-liked'
+            "
+          >
+            <mat-icon>favorite</mat-icon> Вподобайки {{ post.likes }}
+          </button>
+        </mat-card-actions>
+
+        <div style="text-align: left">
+          <p *ngFor="let comment of post.comments">
+            <span style="font-weight: 500">{{ comment.username }}</span
+            >: {{ comment.message }}
+          </p>
+        </div>
+
+        <mat-form-field class="w-100">
+          <mat-label>Залишити комент...</mat-label>
+          <input
+            (keyup.enter)="postComment($event.target.value, post.id)"
+            matInput
+            #message
+            maxlength="128"
+          />
+          <mat-hint align="end">{{ message.value.length }} / 128</mat-hint>
+        </mat-form-field>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="to-top" (click)="scrollToTop()">
+    <mat-icon>arrow_upward</mat-icon>
+  </div>
+</div>
